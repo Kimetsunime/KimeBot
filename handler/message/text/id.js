@@ -22,8 +22,20 @@ Best regards, Yoga Sakti.`
 
 exports.textMenu = (pushname) => {
     return `
-Hi, ${pushname}! 👋️
+Hi, ${pushname}! �️
 Berikut adalah beberapa fitur yang ada pada bot ini!✨
+Lyric Searcher:
+1. *#Lyric* _<Judul Lagu>_
+
+YouTube:
+1. *#yt* _Isi Apa Yang Kalian Cari_
+Untuk Mencari Video YouTube Beserta URL
+Contoh: #yt Kimetsunime ID
+
+2. *#song* [ Unlock Kimetsunime ID Subs 900 ]
+Digunakan Untuk Mendownload Music Dari YouTube Menggunakan URL Yang Sudah
+Dicari Menggunakan Command Diatas Tadi
+Contoh: #song https://www.youtube.com/watch?v=HcV-l5MEEJc
 
 Sticker Creator:
 1. *#sticker*
@@ -103,16 +115,23 @@ Untuk demosikan Admin grup.
 Untuk mention semua member grup. (Premium Only)
 
 5. *#del*
-Untuk menghapus pesan bot (balas pesan bot dengan #del)`
+Untuk menghapus pesan bot (balas pesan bot dengan #del)
+
+6.	*#bye*
+Untuk Kick/Memerintahkan Bot Leave Grup( Admin Only )`
 }
 
 exports.textDonasi = () => {
     return `
-Hai, terimakasih telah menggunakan bot ini, untuk mendukung bot ini kamu dapat membantu dengan berdonasi melalui link berikut:
-1. Saweria: https://saweria.co/yogasakti
-2. Trakteer: https://trakteer.id/red-emperor 
+Hai, terimakasih telah menggunakan bot ini, untuk mendukung bot ini kamu dapat membantu dengan Subscribe & Follow melalui link berikut:
+1.YouTube: https://www.youtube.com/channel/UCJPVt_tSUcSOx4nK-Marwmg
+2.Instagram: https://www.instagram.com/kimetsunime.id/
 
-Donasi akan digunakan untuk pengembangan dan pengoperasian bot ini.
+Terimakasih Telah Mensupport Bot Ini :D`
+}
 
-Terimakasih.`
+exports.stickerSend = (pushname) => {
+    return `Terimakasih Telah Menggunakan Bot Ini @${pushname}! Jangan Lupa Subsrcibe Dan Follow Kimetsunime ID 
+	-YouTube:www.youtube.com/channel/UCJPVt_tSUcSOx4nK-Marwmg 
+	-Instagram:https://www.instagram.com/kimetsunime.id/`
 }
