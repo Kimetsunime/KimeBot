@@ -21,6 +21,6 @@ ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils 
 && rm google-chrome-stable_current_amd64.deb \
 && apt autoremove --yes
 
-EXPOSE 8080
+EXPOSE process.env.PORT
 
 CMD ["npm", "start"]
