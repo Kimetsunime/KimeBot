@@ -223,6 +223,9 @@ module.exports = msgHandler = async (client, message) => {
         case 'tnc':
             await client.sendText(from, menuId.textTnC())
             break
+	case 'rules':
+		await client.sendText(from, menuId.rules())
+		break
         case 'menu':
         case 'help':
 		const stickerAliase = ['sticker', 'stiker', 'stickers'];
