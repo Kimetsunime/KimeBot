@@ -23,7 +23,12 @@ Best regards, Yoga Sakti.`
 exports.textMenu = (pushname) => {
     return `
 Hi, ${pushname}! �️
+
+Harap Baca Rules Sebelum Menggunakan Bot Ini Dengan Cara
+#rules
+
 Berikut adalah beberapa fitur yang ada pada bot ini!✨
+
 Lyric Searcher:
 1. *#Lyric* _<Judul Lagu>_
 
@@ -71,28 +76,55 @@ Penggunaan: kirim pesan dengan format *#ig https://www.instagram.com/p/BPOd1vhDM
 Untuk mengunduh photo dan video dari Twitter.
 Penggunaan: kirim pesan dengan format *#twt https://twitter.com/ntsana_/status/1306108656887324672*
 
+Osu:
+Mode:[0=Std][1=Taiko][2=Ctb][3=Mania]
+>. *#osurecent* <_Username_> <_Mode_>
+Menampilkan Recent Play User Osu
+Contoh:"#rs Kimetsunime 3"
+
+>. *#osutop* <_Username_> <_Mode_>
+Menampilkan Top Score Game Osu,Cara Penggunaan Sama Seperti Diatas
+
+>. *#osu* <_Username_>
+Menampilkan Profile & Detail Akun Osu
+
+
 Lain-lain:
-1. *#translate* _<kode bahasa>_
+>. *#anime*
+Menampilkan Detail Anime
+Contoh:#anime Boku No Hero
+
+>. *#reddit* <_subreddit_>
+Mengirim Foto Dari Sumber SubReddit
+Contoh:#reddit SoftwareGore
+
+>. *#translate* _<kode bahasa>_
 Untuk mengartikan pesan menjadi bahasa yang ditentukan.
 Penggunaan: Balas/quote/reply pesan yang ingin kamu translate dengan _*#translate id*_ <- id adalah kode bahasa. kode bahasa dapat dilihat di *https://bit.ly/33FVldE*
 
-2. *#resi* _<kurir>_ _<nomer resi>_
+>. *#resi* _<kurir>_ _<nomer resi>_
 Untuk memeriksa status pengiriman barang, daftar kurir: jne, pos, tiki, wahana, jnt, rpx, sap, sicepat, pcp, jet, dse, first, ninja, lion, idl, rex.
 Penggunaan: kirim pesan dengan format _*#resi jne 1238757632*_
 
-3. *#meme* _<teks atas>_ | _<teks bawah>_
+>. *#meme* _<teks atas>_ | _<teks bawah>_
 Untuk membuat meme dengan teks atas dan bawah
 Penggunaan: kirim gambar dengan caption _*#meme aku atas | kamu bawah*_, atau juga bisa dengan membalas gambar yang sudah ada.
 
-4. *#ceklokasi*
+>. *#ceklokasi*
 Cek lokasi penyebaran covid-19 di daerah sekitarmu (kelurahan).
 Penggunaan: kirimkan lokasimu lalu balas/quote/reply lokasi yang kamu kirim dengan _*#ceklokasi*_
 
-5. *#tnc*
+>. *#tnc*
 Menampilkan Syarat dan Kondisi Bot.
 
-6. *#donasi*
+>. *#donasi*
 menampilkan informasi donasi.
+
+>. *#ping*
+Test Speed Bot
+
+>. *#botstat*
+Melihat Berapa Banyak Pesan Yang Diterima Bot
 
 Hope you have a great day!✨`
 }
@@ -128,6 +160,12 @@ Hai, terimakasih telah menggunakan bot ini, untuk mendukung bot ini kamu dapat m
 2.Instagram: https://www.instagram.com/kimetsunime.id/
 
 Terimakasih Telah Mensupport Bot Ini :D`
+}
+
+exports.rules = () => {
+    return `Simple,Dilarang:
+-Spam Command
+-Telfon`
 }
 
 exports.stickerSend = (pushname) => {
