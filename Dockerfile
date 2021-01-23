@@ -23,4 +23,4 @@ ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils 
 
 EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["npm", "start", "--optimize_for_size", "--max_old_space_size=920"]
