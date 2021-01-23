@@ -327,7 +327,68 @@ module.exports = msgHandler = async (client, message) => {
                 await client.sendText(from, 'Tidak ada gambar! Untuk membuka daftar perintah kirim #menu [Wrong Format]', id)
             }
             break
+	}
+	case 'work' : {
+            let cdDuration = 1000*60*1
+            let ids = sender.id.replace('@c.us', '')
+            let amount = (Math.ceil(Math.random()*1))*1000
+            let nowDB = func.database(dbPath).cash 
+            try { 
+            func.cashDB(ids, 'handler/message/db.json', amount, pushname)
+            client.sendText(from, `Congrats ${pushname}! Kamu mendapatkan ${amount} Rupiah dari pekerjaan keras yg kamu lakukan\nTotal Balance kamu sekarang: ${(nowDB[ids])? ((nowDB[ids].amount) + amount) : amount}`)
+            func.workCD(ids, cdDuration)
+            } catch(err) {
+                console.log(err)
+                client.sendText(from, `Upss, go boleh cheat ya onii-chan >\\\\\\<\nInget ada cooldown ya`)
+            }
+            
+            break;
         }
+        case 'bal':
+        case 'balance': {
+            let userId = (mentionedJidList[0] || sender.id).replace('@c.us', '')
+            let databases = func.database(dbPath).cash[userId]
+            client.sendTextWithMentions(from, `This is balance from @${userId}\n${(databases)? 'Balance: '+databases.amount : '\`\`\`You don\'t have anything in our database! >_<\`\`\`'}`)
+            break;
+        }
+        case 'cf':
+        case 'coinflip': {
+            let chose = {
+                "head": ['head', 'heads'],
+                "tail": ['tail', 'tails'],
+                "me": null
+            } 
+            let rng = Math.floor(Math.random()*1.1)
+            let ids = sender.id.replace('@c.us', '')
+            let nowDb = func.database(dbPath).cash[ids] || 0
+            let amount = (args[1] === 'all')? nowDb.amount : Math.floor(Number(args[1]))
+            let headortail = args[0]
+            if(args.length < 2) return client.sendText(from, 'Invalid Parameters: inpsut = ```>cf head 10000```')
+            if(isNaN(amount)) return client.sendText(from, 'Invalid input: Not A Number')
+            if(!(chose.head).concat(chose.tail).includes(args[0])) return client.sendText(from, 'Invalid Option')
+            if(amount <= nowDb.amount && amount < 0) return client.sendText(from, 'You don\'t have that much money')
+            chose.me = (chose.head.includes(headortail))? 1 : (chose.tail.includes(headortail))? 0 : null
+            console.log(chose.me === rng, chose.me + ' and '+rng)
+            await client.sendText(from, `You're betting ${args[0]} for ${amount} Rupiah`)
+            .then(() => {
+                client.sendText(from, 'flipping...')
+                .then(() => {
+                    if(chose.me === rng) {
+                        func.addDbAmount(dbPath, ids, amount, pushname, true)
+                        client.sendText(from, `You've won!!\nYou got ${amount} Rupiah\nYour total balance is: ${nowDb.amount + amount}`)
+                    } else {
+                        func.addDbAmount(dbPath, ids, -amount, pushname, false)
+                        client.sendText(from, `You lost :c\nYou just lost ${amount} Rupiah\nYour total balance is: ${nowDb.amount - amount}`)
+                    }
+                    func.cpCD(ids, 1000*60)
+                })
+                .catch(err => {
+                    console.log(err)
+                    client.sendText(from, 'You\'re in cooldown. Please wait')
+                })    
+            })
+            break;
+        } 
 		//RS
 case 'osurecent':
 case 'osurs':
