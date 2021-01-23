@@ -3,13 +3,15 @@ const { color, messageLog } = require('./utils')
 const msgHandler = require('./handler/message')
 const http = require('http');
 
-const hostname = '0.0.0.0';
-const port = process.env.PORT;
+const http = require('http');
+
+const hostname = 'kimetsunime-kmn-7902.zeet.app';
+const port = 8080;
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end('kimeBot Is Now Active Enjoy! :)');
+  res.end('Hello World');
 });
 
 server.listen(port, hostname, () => {
