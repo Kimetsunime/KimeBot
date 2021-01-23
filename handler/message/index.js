@@ -16,6 +16,9 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 const redditApi = require('imageapi.js')
 const lyricsFinder = require('lyrics-finder');
+var db = require('./db.json')
+var dbPath = 'handler/message/db.json'
+const func = require('./function');
 var search = require('youtube-search');
 var opts = {
     maxResult: 10,
