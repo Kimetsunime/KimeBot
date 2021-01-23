@@ -1,7 +1,20 @@
 const { create, Client } = require('@open-wa/wa-automate')
 const { color, messageLog } = require('./utils')
 const msgHandler = require('./handler/message')
+const http = require('http');
 
+const hostname = '0.0.0.0';
+const port = process.env.PORT;
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('kimeBot Is Now Active Enjoy! :)');
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
 const start = (client = new Client()) => {
     console.log('[DEV]', color('Red Emperor', 'yellow'))
     console.log('[CLIENT] CLIENT Started!')
