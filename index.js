@@ -2,9 +2,6 @@ const { create, Client } = require('@open-wa/wa-automate')
 const { color, messageLog } = require('./utils')
 const msgHandler = require('./handler/message')
 const http = require('http');
-
-const http = require('http');
-
 const hostname = 'kimetsunime-kmn-7902.zeet.app';
 const port = 8080;
 
