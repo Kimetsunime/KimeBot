@@ -3,8 +3,8 @@ const { color, messageLog } = require('./utils')
 const msgHandler = require('./handler/message')
 const http = require('http');
 
-const hostname = process.env.HOST;
-const port = process.env.PORT;
+const hostname = '75.2.70.125';
+const port = 8080;
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
