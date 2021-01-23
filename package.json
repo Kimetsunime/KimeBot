@@ -4,7 +4,7 @@
   "description": "Whatsapp Bot - sticker creator",
   "main": "index.js",
   "scripts": {
-    "start": "node --max-old-space-size=912 index.js"
+    "start": "node --optimize_for_size --max_old_space_size=920 index.js"
   },
   "author": "Yoga Sakti",
   "repository": {
