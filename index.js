@@ -3,7 +3,7 @@ const { color, messageLog } = require('./utils')
 const msgHandler = require('./handler/message')
 const http = require('http');
 
-const hostname = 'process.env.HOST';
+const hostname = process.env.HOST;
 const port = process.env.PORT;
 
 const server = http.createServer((req, res) => {
