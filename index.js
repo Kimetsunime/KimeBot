@@ -4,21 +4,7 @@ const msgHandler = require('./handler/message')
 const start = (client = new Client()) => {
     console.log('[DEV]', color('Red Emperor', 'yellow'))
     console.log('[CLIENT] CLIENT Started!')
-//PORT
-  const http = require('http');
 
-const hostname = '0.0.0.0';
-const port = 8080;
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('KimeBot Is Now Active,Enjoy! :)');
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
     // Message log for analytic
     client.onAnyMessage((fn) => messageLog(fn.fromMe, fn.type))
 
