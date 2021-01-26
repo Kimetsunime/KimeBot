@@ -10,7 +10,6 @@ const NSFW = require("discord-nsfw");
 const nsfw = new NSFW();
 const randomItem = require('random-item');
 const Mal = require('mal-scraper')
-var osuAPI = '1b1ead5667971c324cadbb76f5a005be4b5fd403';
 var osuUrl = "https://osu.ppy.sh/api/";
 const fs = require('fs');
 const fetch = require('node-fetch');
@@ -24,16 +23,7 @@ var opts = {
     maxResult: 10,
     key: "AIzaSyDb6aYIk8aSU_hmbQ5opWniXn4z4dQ53UY"
 };
-async function getUser(username, mode) {
-    if(!mode) { mode = 0 };
-    let response = await fetch(osuUrl+'get_user?k='+osuAPI+'&m='+mode+'&u='+username);
-    let json = await response.json();
-    let Yahallo = json[0]
-    let img = `http://s.ppy.sh/a/${Yahallo.user_id}`;
-    let modeType;
-    if(!username) { 
-      console.error('ERROR_MISSING_USERNAME: Error Property of \'undefined\'')
-    }
+
     if(mode == 1) {
       modeType = 'osu!taiko'
     } else if (mode == 2) {
@@ -63,48 +53,6 @@ async function getUser(username, mode) {
     std: math0,
     mania: math3,
   }
-}
-
-async function topPlay(username, mode) {
-  if(!mode) {
-    mode = 0;
-  }
-  let data = await fetch(osuUrl+'get_user_best?k='+osuAPI+'&u='+username+`&limit=5`+`&m=`+mode);
-  let json = await data.json();
-  if(json.length < 5) {
-    throw new Error('this player doesn\'t have more than 5 score on this mode')
-  }
-  if(!username) {
-    console.error('ERROR_MISSING_USERNAME: Error Property of \'undefined\'')
-  } else if(json[0] === undefined) {
-    console.log('Not Found')
-  }
-  json.mode = Number(mode)
-  
-  return json
-}
-
-async function getRecent(username, mode) {
-  if(!mode) {mode = 0}
-  let data = await fetch(osuUrl+'get_user_recent?k='+osuAPI+'&u='+username+`&m=${mode}&limit=5`);
-  let json = await data.json();
-  if(json.length < 1) {
-    console.error('This player doesn\'t recent play')
-  }
-  json.mode = Number(mode)
-  return json
-}
-
-async function getMap(id) {
-  let r = await fetch(osuUrl+'get_beatmaps?k='+osuAPI+'&b='+id);
-  let data = await r.json();
-  let out = data[0]
-  let ids = Number(id)
-  if(isNaN(ids)) {
-    throw 'ERROR_NaN: Not a Number'
-  }
-  
-  return out
 }
 
 function modList(num) {
@@ -389,83 +337,7 @@ module.exports = msgHandler = async (client, message) => {
             })
             break;
         } 
-		//RS
-case 'osurecent':
-case 'osurs':
-case 'rs': {
-  getRecent(args[0], args[1])
-  .then(r => {
-    if(isNaN(Number(args[1])) || args[1] > 3) {args[1] = 0}
-    if(args.length < 1) {
-      client.sendText(from, 'please provide some username')
-    }
-    if(r.length < 1) {
-      client.sendText(from, 'This user doesn\'t have any recent play')
-    }
-    var response = [];
-    let loop = setInterval(pushDataRecent, 250)
-    let x = 0
-    
-    function pushDataRecent() {
-      let i = 0 + x++
-      if(i == r.length) {
-        clearInterval(loop)
-      } else {
-        let accs = [acc(r[i].count300, r[i].count100, r[i].count50, r[i].countmiss).std, 'Not Availabe Yet', 'Not Availabe Yet', acc(r[i].count300, r[i].countgeki, r[i].countkatu,r[i].count100, r[i].count50, r[i].countmiss).mania]
-        getMap(r[i].beatmap_id)
-        .then(data => {
-          response.push(`${i+1}. ${data.title} (${Number(data.difficultyrating).toFixed(2)}☆)\n[${data.version}] => ${r[i].rank} | +${modList(r[i].enabled_mods).join('')}\n${accs[r.mode]}% | scores: ${r[i].score}`)
-        })
-      }
-    }
-    client.sendText(from, 'Getting data...')
-    setTimeout(function() {
-      client.sendText(from, `Recent Play for ${args[0]}\n\n${response.join('\n\n')}`)
-    }, 3000);
-  })
-  .catch(e => {
-    console.error(e)
-    client.sendText(from, 'Player Not Found')
-  });
-  break
-}
-case 'osutop': {
-  topPlay(args[0], args[1])
-  .then(r => {
-    if(isNaN(Number(args[1])) || args[1] > 3) {args[1] = 0}
-    if(args.length < 1) {
-      client.sendText(from, 'please provide some username')
-    }
-    if(r.length < 1) {
-      client.sendText(from, 'This user doesn\'t have any recent play')
-    }
-    var response = [];
-    let loop = setInterval(pushDataRecent, 250)
-    let x = 0
-    
-    function pushDataRecent() {
-      let i = 0 + x++
-      if(i == r.length) {
-        clearInterval(loop)
-      } else {
-        let accs = [acc(r[i].count300, r[i].count100, r[i].count50, r[i].countmiss).std, 'Not Availabe Yet', 'Not Availabe Yet', acc(r[i].count300, r[i].countgeki, r[i].countkatu,r[i].count100, r[i].count50, r[i].countmiss).mania]
-        getMap(r[i].beatmap_id)
-        .then(data => {
-          response.push(`${i+1}. ${data.title} (${Number(data.difficultyrating).toFixed(2)}☆)\n[${data.version}] => ${r[i].rank} | +${modList(r[i].enabled_mods).join('')}\n${Number(r[i].pp).toFixed(2)}pp\n${accs[r.mode]}% | scores: ${r[i].score}`)
-        })
-      }
-    }
-    client.sendText(from, 'Getting data...')
-    setTimeout(function() {
-      client.sendText(from, `Top Play for ${args[0]}\n\n${response.join('\n\n')}`)
-    }, 3000);
-  })
-  .catch(e => {
-    console.error(e)
-    client.sendText(from, e)
-  });
-  break
-}
+			
         case 'stikergif':
         case 'stickergif':
         case 'gifstiker':
